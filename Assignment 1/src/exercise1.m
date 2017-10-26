@@ -14,6 +14,9 @@
 %   EXERCISE1(INPUT_DIRECTORY, OUTPUT_DIRECTORY, START_FRAME, END_FRAME) only
 %   processes the images from START_FRAME to END_FRAME.
 %
+%   RUN:
+%   process 25 frames: exercise1('../images1', '../output', 1, 25);
+%   convert them back to video: convert_images_to_video( '../output', '../video/output.mp4');
 % Example 1:
 %   EXERCISE1('../images', '../output') processes all images frameXXXX.png in 
 %   '../images' and stores the output in '../output'.
@@ -142,7 +145,7 @@ function exercise1(input_directory, output_directory, start_frame, end_frame)
         % in the queue and are applied to every frame
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         if (video.frame(1).frame_nr ~= -1) 
-%             video      = filter_remove_color(video, 'bw');          % 
+%             video      = filter_remove_color(video, 'sepia');          % 
 %             video      = filter_unsharp(video, 3, 3);                  % 
 %             video      = filter_rand_illumination(video, 0.7, 0.8);    % 
 %             video      = filter_highcontrast(video, 0.3, 0.2);         % 

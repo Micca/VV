@@ -20,7 +20,9 @@
 %
 %   RANGE VALUES FOR PARAMETERS:
 %       .....
-function video = filter_unsharp(video, PARAM1, ...)
-
-
+function video = filter_unsharp(video, std, size)
+    fsize=[size size];
+    gauss_kernel= fspecial('gaussian', fsize, std);
+    
+    video.frame(1).filtered= imfilter(video.frame(1).filtered, gauss_kernel);
 end

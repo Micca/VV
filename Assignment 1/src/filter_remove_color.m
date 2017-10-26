@@ -51,8 +51,10 @@ function [video] = filter_remove_color(video, mode)
     % 4) RETURN 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     function [bw] = black_white(img)
-                   
-
+        hsv= rgb2hsv(img);
+        ns= zeros(size(hsv(:,:,1)));
+        hsv(:,:,2)= ns;
+        bw= hsv2rgb(hsv);
     end
     %%    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -62,9 +64,29 @@ function [video] = filter_remove_color(video, mode)
     % 2) RETURN CONVERTED IMAGE 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     function [sepia] = sepia(img)
-
+        %{
+        sepia_mat= [0.4, 0.769, 0.189;
+                    0.349, 0.686, 0.168;
+                    0.272 0.534, 0.131];
+        %}
+        img_rows= size(img,1);
+        img_col= size(img,2);
         
+        sepia_r= [0.4, 0.769, 0.189];
+        sepia_g= [0.349, 0.686, 0.168];
+        sepia_b= [0.272 0.534, 0.131];
+
+        smat_r(1:img_rows,1:img_col,:)= repmat(reshape(sepia_r, [1 1 3]),[img_rows, img_col]);
+        smat_g(1:img_rows,1:img_col,:)= repmat(reshape(sepia_g, [1 1 3]),[img_rows, img_col]);
+        smat_b(1:img_rows,1:img_col,:)= repmat(reshape(sepia_b, [1 1 3]),[img_rows, img_col]);
+        
+        res_r= dot(img, smat_r, 3);
+        res_g= dot(img, smat_g, 3);
+        res_b= dot(img, smat_b, 3);
+        
+        sepia= cat(3, res_r, res_g, res_b);
     end
 end
 
-
+% imshow(img)
+% imshow(result)
