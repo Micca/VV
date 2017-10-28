@@ -12,14 +12,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   IMPLEMENTATION:
-%       .....
+%       To generate a random luma_factor between min, max we use the
+%       following formula: luma(min, max)= min + (max-min) * rand(1, 1);
+%       Min is the lowest value the luma factor can get.
+%       The random factor (allways between 0-1) scales the distance between
+%       max and min. Thus the luma factor can be at most max.
+%       Lastly all color channels of the image are multiplied by the value.
 %
-%   PHYSICAL BACKGROUND:
+%   PHYSICAL BACKGROUND: 
+%       -> investigate why old film has random illumination.
 %       .....
 %
 %   RANGE VALUES FOR PARAMETERS:
-%       .....
+%       Valid range values are between >0 to >1.
+%       When the range is set under zero the whole picture will be white.
+%       Values above one can scale the color values of the picture out of
+%       the depictable range, causing a white spot.
+%       Pixel in this white spot depict a loss of information, as their
+%       values are now indistinguishable form each other.
 function video = filter_rand_illumination(video, min_brightness, max_brightness)
-
-
+    luma_factor= min_brightness + (max_brightness - min_brightness) .* rand(1, 1);
+    video.frame(1).filtered= video.frame(1).filtered .* luma_factor;
 end

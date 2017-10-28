@@ -13,7 +13,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   IMPLEMENTATION:
-%       .....
+%       To implement the remove color effect (bw) the color channel of the
+%       hsv converted image is set to zero.
+%
+%       For the sepia effect each pixel is transformed with a
+%       transformation matrix given in the instruction.
+%       To calculate this transformation the matrix is split up into
+%       rows that are transformed into [1 1 3] matrices. These matrices are
+%       then duplicated to the whole size of the picture to calculate the 
+%       result for each color chanel by using the dot product of the [1 1 3]
+%       matrices and the pixel rgb values.
 %
 %   PHYSICAL BACKGROUND:
 %       .....

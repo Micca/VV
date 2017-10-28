@@ -13,8 +13,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   IMPLEMENTATION:
-%       .....
-%
+%       The unsharpening effect can be easily done by the Matlab provided
+%       functions fspecial and imfilter.
+%       Fspecial creates a gaussian filter of provided size and standart
+%       deviation, the imfilter function convolves the img with the filter.
 %   PHYSICAL BACKGROUND:
 %       .....
 %
