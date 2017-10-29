@@ -17,14 +17,15 @@
 %       Min is the lowest value the luma factor can get.
 %       The random factor (allways between 0-1) scales the distance between
 %       max and min. Thus the luma factor can be at most max.
-%       Lastly all color channels of the image are multiplied by the value.
+%       
+%       All color channels of the image are then multiplied by the random luma value.
 %
 %   PHYSICAL BACKGROUND: 
 %       -> investigate why old film has random illumination.
 %       .....
 %
 %   RANGE VALUES FOR PARAMETERS:
-%       Valid range values are between >0 to >1.
+%       Valid range values are between >0 to <1.
 %       When the range is set under zero the whole picture will be white.
 %       Values above one can scale the color values of the picture out of
 %       the depictable range, causing a white spot.

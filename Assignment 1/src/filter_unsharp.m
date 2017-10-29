@@ -21,7 +21,14 @@
 %       .....
 %
 %   RANGE VALUES FOR PARAMETERS:
-%       .....
+%       Size should be an uneven number so that the filter has a center. 
+%       (3-(1/4 * size of image))
+%       
+%       The unsharpening effect depends strongly on both parameters to get
+%       a strongly blurred image the size of the filter has be big enough
+%       (>3) and the std also (>1). The standard deviation defines how
+%       strongly the value is influenced by surrounding pixels and the size
+%       defines how many pixels are considered to blurr.
 function video = filter_unsharp(video, std, size)
     fsize=[size size];
     gauss_kernel= fspecial('gaussian', fsize, std);

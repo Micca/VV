@@ -31,6 +31,13 @@
 %
 %   RANGE VALUES FOR PARAMETERS:
 %       0 < dx, dy < 0.5
+%       Both dx,dy= 0 and dx,dy= 0.5 have no effect on the image at all.
+%       Both values lead to a linear mapping that does not change values at
+%       all.
+%
+%       Dx defines the range of light and dark values that are changed
+%       (bigger dx - bigger range of change).
+%       Dy defines how much they are changed (smaller dy - bigger change.
 function video = filter_highcontrast(video, dx, dy)
     img_hsv= rgb2hsv(video.frame(1).filtered);
     img_intensity3= intFunction(img_hsv(:,:,3), dx, dy);
