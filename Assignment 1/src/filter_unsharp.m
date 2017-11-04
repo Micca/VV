@@ -18,7 +18,11 @@
 %       Fspecial creates a gaussian filter of provided size and standart
 %       deviation, the imfilter function convolves the img with the filter.
 %   PHYSICAL BACKGROUND:
-%       .....
+%       For aestethic reasons, gaussian filter are often used to smooth out
+%       noise out of frames, which often appears if the images were
+%       done under bad lighting circumstances. Furthermore, it is also
+%       commonly used to hide a particular area in a frame. Gaussian filter
+%       plays a big role in anti-aliasing. 
 %
 %   RANGE VALUES FOR PARAMETERS:
 %       Size should be an uneven number so that the filter has a center. 

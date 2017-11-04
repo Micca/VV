@@ -42,7 +42,11 @@
 %       After that the image only has to be multiplied with the brightness
 %       map.
 %   PHYSICAL BACKGROUND:
-%       .....
+%       Iris shots were used in silent films to either use it as a
+%       transition to end/start a scene or to emphasize on a particular
+%       aspect of film. Furthermore, in some cartoons iris shots were used
+%       for comedic purposes (e.g. cartoon figure is trying to escape the
+%       closing iris shot)
 %
 %   RANGE VALUES FOR PARAMETERS:
 %       transition size: >0 - < (img width/2) - iris outer position

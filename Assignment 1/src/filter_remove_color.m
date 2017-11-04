@@ -28,7 +28,16 @@
 %       for the whole picture.
 %
 %   PHYSICAL BACKGROUND:
-%       .....
+%       BW: In the past, hobby color photographies were quite rare before the 90s
+%       due to expensive technical equipment and material, so it was not an
+%       effect, but just the result of the equipment at that time. Nowadays, BW is mostly
+%       used as a filter for aestethic reasons; for a lot of computer
+%       vision tasks bw only information is sufficient enough (better
+%       performance due to less information, etc.)
+%
+%       Sepia toning was used in the past to enhance black and white
+%       photographies and to give them a better warmer tone and to to also enhance its archival qualities.
+%       This process was done during the developing of the film with different chemicals.
 function [video] = filter_remove_color(video, mode)    
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -81,6 +90,7 @@ function [video] = filter_remove_color(video, mode)
                     0.349, 0.686, 0.168;
                     0.272 0.534, 0.131];
         %}
+        
         img_rows= size(img,1);
         img_col= size(img,2);
         

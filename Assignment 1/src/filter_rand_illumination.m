@@ -21,8 +21,14 @@
 %       All color channels of the image are then multiplied by the random luma value.
 %
 %   PHYSICAL BACKGROUND: 
-%       -> investigate why old film has random illumination.
-%       .....
+%       This effect is used to imitate old movies, which has mostly different
+%       illumination from frame to frame. The reason for this has several
+%       reasons like the mechincal process of taking images on a e.g. 8mm
+%       film, which can cause a quite high fickleness of brightness.
+%       Furthermore, old projectors which were used to present old film
+%       used arc lamps as lighting sources. Arc lamps are well known for
+%       flickering, even though that many improvements were done in the
+%       past to reduce the effect.
 %
 %   RANGE VALUES FOR PARAMETERS:
 %       Valid range values are between >0 to <1.

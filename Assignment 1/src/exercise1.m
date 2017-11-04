@@ -145,11 +145,13 @@ function exercise1(input_directory, output_directory, start_frame, end_frame)
         % in the queue and are applied to every frame
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         if (video.frame(1).frame_nr ~= -1) 
-%             video      = filter_remove_color(video, 'sepia');          % 
-%            video      = filter_unsharp(video, 3, 120);                  % 
-%             video      = filter_rand_illumination(video, 0.7, 0.8);    % 
-%             video      = filter_highcontrast(video, 0.3, 0.2);         % 
-%            video      = filter_iris(video, 100, 0.8, 0.85, 0, 0);     % 
+            
+             %video      = filter_remove_color(video, 'bw');          % 
+             %video      = filter_remove_color(video, 'sepia');          % 
+            %video      = filter_unsharp(video, 3, 120);                  % 
+             %video      = filter_rand_illumination(video, 0.7, 0.8);    % 
+             %video      = filter_highcontrast(video, 0.3, 0.2);         % 
+            %video      = filter_iris(video, 100, 0.8, 0.85, 0, 0);     % 
              video      = filter_low_framerate(video, 25, 7);          % 
 
         end

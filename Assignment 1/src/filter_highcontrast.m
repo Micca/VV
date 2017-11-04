@@ -27,7 +27,10 @@
 %       it is given from the video object in the format!
 %
 %   PHYSICAL BACKGROUND:
-%       .....
+%       Applying higher contrast filter to frames is commonly used to
+%       enhance the visual representation. Raising the contrast is
+%       necessary in different image representations like angiography or
+%       MRT.
 %
 %   RANGE VALUES FOR PARAMETERS:
 %       0 < dx, dy < 0.5
