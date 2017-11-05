@@ -46,7 +46,7 @@ if (~isfield(video, 'filter_low_framerate'))
     end
     
     video.filter_low_framerate.double_frame = zeros(1, source_fps);
-    video.filter_low_framerate.double_frame(ra(1:skip_num))=1;
+    video.filter_low_framerate.double_frame(ra(:))=1;
 end
 
 % Check if the source_fps are already done.
