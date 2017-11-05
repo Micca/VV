@@ -59,16 +59,19 @@ function video = filter_low_framerate(video, source_fps, target_fps)
         target= frames + target_fps;
         %}
     end
-    
-    % Check if the source_fps are already done.
-    frame_pos = mod(video.frame(1).frame_nr, source_fps);
-    if frame_pos ~= 0
-        if video.filter_low_framerate.double_frame(frame_pos) == 1
-        video.frame(1).filtered = video.frame(2).filtered;
+    % Check if it's the very first frame, this cannot be replaced by a
+    % predecessor because it does not exist.
+    if video.frame(1).frame_nr ~= 1
+        % Check if the source_fps are already done.
+        frame_pos = mod(video.frame(1).frame_nr, source_fps);
+        if frame_pos ~= 0
+            if video.filter_low_framerate.double_frame(frame_pos) == 1
+            video.frame(1).filtered = video.frame(2).filtered;
+            end
+        else
+            % remove struct field, so for the next call, double_frame can be
+            % reinitialized.
+            video = rmfield(video,'filter_low_framerate');
         end
-    else
-        % remove struct field, so for the next call, double_frame can be
-        % reinitialized.
-        video = rmfield(video,'filter_low_framerate');
     end
 end
