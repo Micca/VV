@@ -39,12 +39,37 @@
 %       .....
 %
 function video = effect_add_text(video, text)
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Get positions/durations of text scenes
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
     
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Insert entries into video.input_files array
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    new_input = video.input_files;
+
+    for a = 1:length(text)
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % Get positions/durations of text scenes
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        imgPath = cell2mat(text{1,a}(1));
+        insertPos = cell2mat(text{1,a}(2));
+        duration = cell2mat(text{1,a}(3));
+        
+        % create insertion data
+        insert.name = imgPath;
+        insert.frame_nr = insertPos;
+        insertArray = repmat(insert, [duration, 1]);
+        
+        % find insertion position
+        newPos= find([new_input.frame_nr] == insertPos);
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % Insert entries into video.input_files array
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        shiftArray = new_input(newPos:end);
+        new_input(newPos:newPos + duration - 1) = insertArray;
+        new_input(newPos + duration : newPos + duration + length(shiftArray) - 1) = shiftArray; 
+    end
+    %{
+    for b = 1 : length(new_input)
+        new_input(b).frame_nr = b;
+    end
+    %}
+    video.input_files = new_input;
+    video.end_frame = length(new_input);
+end

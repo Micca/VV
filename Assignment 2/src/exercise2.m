@@ -107,7 +107,7 @@ function exercise2(input_directory, output_directory, start_frame, end_frame)
     % APPLY ALL FILTERS THAT ALTER THE FRAME NUMBER/ORDER (EXERCISE 2)  
     % OR REQUIRE THE UNFILTERED IMAGE CONTENT
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %video = effect_add_text(video, {{'../../Abgabe1/images/scene_text1.png', 705, 5}});  % add text frames at position X1 in original input files, text is displayed for Y1 frames
+    video = effect_add_text(video, {{'../text/scene_text1.png', 1, 5}, {'../text/scene_text1.png', 3, 3}});  % add text frames at position X1 in original input files, text is displayed for Y1 frames
     
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
