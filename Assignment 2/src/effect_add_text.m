@@ -65,11 +65,7 @@ function video = effect_add_text(video, text)
         new_input(newPos:newPos + duration - 1) = insertArray;
         new_input(newPos + duration : newPos + duration + length(shiftArray) - 1) = shiftArray; 
     end
-    %{
-    for b = 1 : length(new_input)
-        new_input(b).frame_nr = b;
-    end
-    %}
+
     video.input_files = new_input;
     video.end_frame = length(new_input);
 end

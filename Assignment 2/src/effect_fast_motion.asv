@@ -36,11 +36,11 @@ function video = effect_fast_motion(video, drop_frames)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Remove frames from input list
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    ra = (ones(1, rm_num) * (startFrame - 1)) + randperm(domain, rm_num);
+    pos = position(number == startFrame);
+    ra = sort((ones(1, rm_num) * (startFrame - 1)) + randperm(domain, rm_num));
+    
     rm_indexes = position(ismember(number, ra));
     new_input(rm_indexes) = [];
+   
     end
-    
-    video.input_files = new_input;
-    video.end_frame = length(new_input);
 end

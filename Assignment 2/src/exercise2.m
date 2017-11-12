@@ -107,7 +107,7 @@ function exercise2(input_directory, output_directory, start_frame, end_frame)
     % APPLY ALL FILTERS THAT ALTER THE FRAME NUMBER/ORDER (EXERCISE 2)  
     % OR REQUIRE THE UNFILTERED IMAGE CONTENT
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    video = effect_add_text(video, {{'../text/scene_text1.png', 1, 5}, {'../text/scene_text1.png', 3, 3}});  % add text frames at position X1 in original input files, text is displayed for Y1 frames
+     video = effect_add_text(video, {{'../text/scene_text1.png', 1, 5}, {'../text/scene_text1.png', 3, 3}});  % add text frames at position X1 in original input files, text is displayed for Y1 frames
     
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,8 +167,8 @@ function exercise2(input_directory, output_directory, start_frame, end_frame)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %video = effect_soft_focus(video,720,0.5,25); %, {{1, 8}, ...           % at frame X1 apply soft focus for Y1 frames
         %                                  {100, 10}});          % at frame X2 apply soft focus for Y2 frames
-        %video = effect_fast_motion(video, {{1, 10, 8}, ...         % at frame X1 reduce the next Y1 frames to Z1 frames (randomly remove)
-        %                                  {100, 25, 10}});        % at frame X2 reduce the next Y2 frames to Z2 frames (randomly remove) 
+        video = effect_fast_motion(video, {{1, 10, 8}, ...         % at frame X1 reduce the next Y1 frames to Z1 frames (randomly remove)
+                                          {22, 25, 10}});        % at frame X2 reduce the next Y2 frames to Z2 frames (randomly remove) 
 
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
