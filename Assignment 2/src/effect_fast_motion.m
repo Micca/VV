@@ -13,10 +13,43 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   IMPLEMENTATION:
-%       .....   
+%       This method drops frames sequentially based on the given cell
+%       array. For this purpose, it reads out the parameters and searches
+%       the image frame array for non-text images. To do this the method
+%       unique is used to find the last occurence of a certain frame nr,
+%       as the last occurence is always the original frame. To find a
+%       certain frame its number has to be searched in the number array.
+%       By looking up the same index in the positions array the index in
+%       the image frame array is found.
 %   
+%       These two arrays provide the information to find a frame by its number. 
+%       Then the  randperm matlab function to make a selection the random frames 
+%       in the given domain. Lastly these frames are removed.
+%
+%       The end_frame in the video struct is also updated to accomodate for
+%       the frame cutting.
+%       
 %   USE OF THE EFFECT:
-%       .....
+%       As mentioned in the task description this technique was used in old
+%       movies to shorten the tedious actions.
+%
+%       To use this effect the video struct together with a cell array has
+%       to be passed to this function. Each cell holds three variables. 
+%
+%       Frames are cut in domains randomly, thus the start point of the
+%       domain, the length and the number of frames to cut from that domain
+%       are specified.
+%       
+%       For the start point, it has to be between the start and end frame
+%       of the video. And it has to accomodate for the duration, thus has 
+%       to be <end-duration.
+%
+%       The duration has to be >0 and <= number of video frames.
+%       
+%       The number of cut frames has to be between 1 and all frames in the
+%       selected duration.
+%
+%       The same frame cannot be cut twice.
 %
 function video = effect_fast_motion(video, drop_frames)
 
