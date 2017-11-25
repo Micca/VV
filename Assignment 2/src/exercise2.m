@@ -155,7 +155,7 @@ function exercise2(input_directory, output_directory, start_frame, end_frame)
 %             video      = filter_rand_illumination(video, 0.7, 0.8);    % 
 %             video      = filter_highcontrast(video, 0.3, 0.2);         % 
 %             video      = filter_iris(video, 100, 0.8, 0.85, 0, 0);     % 
-%             video      = effect_irising_in_out(video, 100, 0.6, 0.65, 0, 0, {{720, 20}, {740,20}});            %
+             video      = effect_irising_in_out(video, 100, 0.6, 0.65, 0, 0, {{10, 20}});            %
 %             video      = filter_low_framerate(video, 25, 19);          % 
 
         end
@@ -169,7 +169,6 @@ function exercise2(input_directory, output_directory, start_frame, end_frame)
         %                                  {100, 10}});          % at frame X2 apply soft focus for Y2 frames
         video = effect_fast_motion(video, {{1, 10, 8}, ...         % at frame X1 reduce the next Y1 frames to Z1 frames (randomly remove)
                                           {22, 25, 10}});        % at frame X2 reduce the next Y2 frames to Z2 frames (randomly remove) 
-
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % STORE FRAMES AT THE END OF PROCESSING BUFFER
