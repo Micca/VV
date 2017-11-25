@@ -47,8 +47,27 @@ function video = effect_soft_focus(video, blur_factor, focus)
     % CHECK IF THE CURRENT FRAME IS PROCESSED BY THIS EFFECT 
     % (frame(x).frame_nr between pos(i) and pos(i)+duration(i)-1)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    
+    factor = -1; % Init factor
+    frameNr = video.frame(1).frame_nr;
+    % Loop through all iris effects and run until one is in range.
+    for i = 1:numel(focus)
+        
+        current_soft_focus_pos_start = video.effect_soft_focus.pos_start(i);
+        current_soft_focus_end = video.effect_soft_focus.pos_end(i);
+        %current_soft_focus_duration = video.effect_soft_focus.duration(i);
+        
+        % Check if frame is affected by effect.
+        if(current_soft_focus_pos_start <= frameNr &&  frameNr <= current_soft_focus_end)
+            factor = (frameNr - current_soft_focus_pos_start) / ( current_soft_focus_end - current_soft_focus_pos_start );
+            % We want to decrease the value, so we have to flip it.
+            factor = (1 - factor);
+            break;
+        end
+    end
+    % If factor is -1, then no iris effect should be applied.
+    if(factor == -1)
+        return;
+    end
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % GET THE FRAME DEPENDENT FOCUS PARAMETERS FOR THE BLUR FILTER
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,7 +76,7 @@ function video = effect_soft_focus(video, blur_factor, focus)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % APPLY CIRCULAR AVERAGE FILTER WITH CHANGING RADIUS
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+    video = filter_unsharp(video, 3, 120 * blur_factor * factor);
         
  end
 
