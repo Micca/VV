@@ -129,3 +129,4 @@ function video = effect_irising_in_out(video, transition_size, min_size, max_siz
     max_size = max_size * factor;
     
     video = filter_iris(video, transition_size, min_size, max_size, dist_x, dist_y);
+end

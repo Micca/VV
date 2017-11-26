@@ -33,9 +33,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   
 %   IMPLEMENTATION:
-%       The Text Images are added into the image sequence sequentially.
+%       Text images are added into the input_file struct sequentially.
 %       First, the data is read out of the cell array, based on that
-%       an array of text frames is construced.
+%       an array of repeating text frames is construced.
 %       Secondly, the position of the frame is found by using the matlab function
 %       find. Then the data that would be overwritten by the insertion is
 %       saved.
@@ -49,13 +49,12 @@
 %       by narrating the story, presenting key dialogue or comment on the
 %       action on screen.
 %
-%       To use this effect the video struct together with a cell array has
-%       to be passed to this function. Each cell holds three variables, the
-%       first beeing the path to the image.
+%       To apply the effect on the video, use a struct (as discussed in the description)
+%       where the first is the path to the image.
 %
-%       The second variable is where the text image should be placed,
-%       this parameter should be in between the start and end frame of the
-%       movie currently in the video struct. 
+%       The second variable defines the frame position where the text image 
+%       sequence should be inserted. This parameter should be in between 
+%       the start and end frame of the video. 
 %
 %       The third variable is the duration of the text insertion in frames,
 %       that value should be >0 and an integer.
@@ -65,7 +64,7 @@
 function video = effect_add_text(video, text)
     
     new_input = video.input_files;
-
+    added_frames = 0;
     for a = 1:length(text)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Get positions/durations of text scenes
@@ -81,15 +80,19 @@ function video = effect_add_text(video, text)
         
         % find insertion position
         newPos= find([new_input.frame_nr] == insertPos);
-        
+        if newPos <= video.end_frame
+            added_frames = added_frames + duration;
+        end
+        if ~isempty(newPos)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Insert entries into video.input_files array
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        shiftArray = new_input(newPos:end);
-        new_input(newPos:newPos + duration - 1) = insertArray;
-        new_input(newPos + duration : newPos + duration + length(shiftArray) - 1) = shiftArray; 
+            shiftArray = new_input(newPos:end);
+            new_input(newPos:newPos + duration - 1) = insertArray;
+            new_input(newPos + duration : newPos + duration + length(shiftArray) - 1) = shiftArray;
+        end
     end
 
     video.input_files = new_input;
-    video.end_frame = length(new_input);
+    video.end_frame = video.end_frame + added_frames;
 end

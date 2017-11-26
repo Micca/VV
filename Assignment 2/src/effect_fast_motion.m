@@ -15,17 +15,17 @@
 %   IMPLEMENTATION:
 %       This method drops frames sequentially based on the given cell
 %       array. For this purpose, it reads out the parameters and searches
-%       the image frame array for non-text images. To do this the method
+%       the input_files array for non-text images. To do this the method
 %       unique is used to find the last occurence of a certain frame nr,
-%       as the last occurence is always the original frame. To find a
-%       certain frame its number has to be searched in the number array.
+%       as the last occurence is always the original frame. 
+
+%       To find a certain frame its number has to be searched in the number array.
 %       By looking up the same index in the positions array the index in
 %       the image frame array is found.
-%   
 %       These two arrays provide the information to find a frame by its number. 
-%       Then the  randperm matlab function to make a selection the random frames 
-%       in the given domain. Lastly these frames are removed.
 %
+%       Then the randperm matlab function to make a selection the random frames 
+%       in the given domain. Lastly these frames are removed.
 %       The end_frame in the video struct is also updated to accomodate for
 %       the frame cutting.
 %       
@@ -33,11 +33,8 @@
 %       As mentioned in the task description this technique was used in old
 %       movies to shorten the tedious actions.
 %
-%       To use this effect the video struct together with a cell array has
-%       to be passed to this function. Each cell holds three variables. 
-%
-%       Frames are cut in domains randomly, thus the start point of the
-%       domain, the length and the number of frames to cut from that domain
+%       Frames are dropped in areas of the video randomly, thus the start point of the
+%       area, the length and the number of frames to cut from that domain
 %       are specified.
 %       
 %       For the start point, it has to be between the start and end frame
@@ -46,14 +43,16 @@
 %
 %       The duration has to be >0 and <= number of video frames.
 %       
-%       The number of cut frames has to be between 1 and all frames in the
+%       The number of droped frames has to be between 1 and all frames in the
 %       selected duration.
 %
-%       The same frame cannot be cut twice.
+%       The same frame cannot be droped twice.
 %
 function video = effect_fast_motion(video, drop_frames)
 
     new_input = video.input_files;
+    end_frame_nr = new_input(video.end_frame).frame_nr;
+    removed_frames = 0;
 
     for a = 1:length(drop_frames)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -63,6 +62,9 @@ function video = effect_fast_motion(video, drop_frames)
     domain = cell2mat(drop_frames{1,a}(2));
     rm_num = domain - cell2mat(drop_frames{1,a}(3));
 
+    if startFrame <= video.end_frame
+        removed_frames = removed_frames + rm_num;
+    end
     % positions of image frames (= last frame with certain number)
     [number, position] = unique([new_input.frame_nr], 'last', 'legacy');
     
@@ -75,5 +77,6 @@ function video = effect_fast_motion(video, drop_frames)
     end
     
     video.input_files = new_input;
-    video.end_frame = length(new_input);
+    last_frame =  find([new_input.frame_nr] <= end_frame_nr);
+    video.end_frame = last_frame(end);
 end
