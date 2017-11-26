@@ -20,10 +20,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   IMPLEMENTATION:
-%       .....
+%       First of all we check if there is a frame which is affected by this
+%       effect, if so, then we easily compute a scaled factor between [0,1] based on
+%       the distance to the starting point. We use this linear factor to successively
+%       reduce the blur_factor. At the end, we multiply the factor *
+%       blur_factor for unsharping the image and call the filter_unsharp
+%       function from exercise 1 to unsharp the image.
 %  
 %   USE OF THE EFFECT:
-%       .....
+%       The blur_factor corresponds to the sigma value for the gaussian
+%       filter, the higher the blur_factor, the more unsharp the starting
+%       image will be. To achieve a smooth interpolation also consider
+%       taking multiple frames into account for that effect.
 %
 function video = effect_soft_focus(video, blur_factor, focus)
 
@@ -54,29 +62,28 @@ function video = effect_soft_focus(video, blur_factor, focus)
         
         current_soft_focus_pos_start = video.effect_soft_focus.pos_start(i);
         current_soft_focus_end = video.effect_soft_focus.pos_end(i);
-        %current_soft_focus_duration = video.effect_soft_focus.duration(i);
+        current_soft_focus_duration = video.effect_soft_focus.duration(i);
         
         % Check if frame is affected by effect.
         if(current_soft_focus_pos_start <= frameNr &&  frameNr <= current_soft_focus_end)
-            factor = (frameNr - current_soft_focus_pos_start) / ( current_soft_focus_end - current_soft_focus_pos_start );
+            
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % GET THE FRAME DEPENDENT FOCUS PARAMETERS FOR THE BLUR FILTER
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            factor = (frameNr - current_soft_focus_pos_start) / ( current_soft_focus_duration );
             % We want to decrease the value, so we have to flip it.
             factor = (1 - factor);
             break;
         end
     end
     % If factor is -1, then no iris effect should be applied.
-    if(factor == -1)
+    if(factor == -1 || factor == 0)
         return;
     end
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % GET THE FRAME DEPENDENT FOCUS PARAMETERS FOR THE BLUR FILTER
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
-
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % APPLY CIRCULAR AVERAGE FILTER WITH CHANGING RADIUS
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    video = filter_unsharp(video, 3, 120 * blur_factor * factor);
+    video = filter_unsharp(video, blur_factor * factor, 120);
         
  end
 
