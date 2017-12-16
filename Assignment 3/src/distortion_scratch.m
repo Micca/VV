@@ -24,20 +24,19 @@ function video = distortion_scratch(video,nr_of_scratches)
     end
     
     rand_picpos = randperm(size(video.frame(1).filtered,2), nr_of_scratches);
-    rand_bright = randi([105 205],1,floor(size(rand_picpos,2)/2));
-    rand_dark = randi([0 3],1,floor(size(rand_picpos,2)/2));
+    rand_bright = randi([230 250],1,floor(size(rand_picpos,2)/2));
+    rand_dark = randi([50 80],1,floor(size(rand_picpos,2)/2));
     rand_arraypos = randperm(size(rand_picpos,2));
     bcolpos = rand_picpos(rand_arraypos(1:size(rand_arraypos,2)/2));
     dcolpos = rand_picpos(rand_arraypos(size(rand_arraypos,2)/2 + 1:size(rand_arraypos,2)));
     for a = 1 : size(rand_arraypos,2)/2
         if randi([0 1])== 1
-        video.frame(1).filtered(:,bcolpos(a),:) = video.frame(1).filtered(:,bcolpos(a),:) * (rand_dark(a)/10);
+        video.frame(1).filtered(:,bcolpos(a),:) = double(rand_dark(a)/intmax('uint8'));
         end
         if randi([0 1])== 1
-        video.frame(1).filtered(:,dcolpos(a),:) = video.frame(1).filtered(:,bcolpos(a),:) * (rand_bright(a)/10);
+        video.frame(1).filtered(:,dcolpos(a),:) = double(rand_bright(a)/intmax('uint8'));
         end
     end
-    imshow(video.frame(1).filtered);
 end
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
