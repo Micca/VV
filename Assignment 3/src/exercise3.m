@@ -178,8 +178,8 @@ function exercise3(input_directory, output_directory, start_frame, end_frame)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
 %         video = distortion_scratch(video, 6);
-         video = distortion_vinegar(video, 25, 120);
-%         video = distortion_grain(video, PARAM1, ...);
+%         video = distortion_vinegar(video, 25, 120);
+         video = distortion_grain(video);
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % STORE FRAMES AT THE END OF PROCESSING BUFFER
