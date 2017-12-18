@@ -35,7 +35,7 @@ function video = distortion_grain(video)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     red = imnoise(video.frame(1).filtered(:,:,1),'gaussian',0,0.005); % Red channel
-    green = imnoise(video.frame(1).filtered(:,:,2),'gaussian',0,0.005); % Red channel
-    blue = imnoise(video.frame(1).filtered(:,:,3),'gaussian',0,0.005); % Red channel
+    green = imnoise(video.frame(1).filtered(:,:,2),'gaussian',0,0.005); % Green channel
+    blue = imnoise(video.frame(1).filtered(:,:,3),'gaussian',0,0.005); % Blue channel
     
     video.frame(1).filtered = cat(3, red, green, blue);

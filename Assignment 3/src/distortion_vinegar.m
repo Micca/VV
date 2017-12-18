@@ -10,10 +10,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   IMPLEMENTATION:
-%       .....
+%       The vinegar blobs are implemented by first calculating random seed
+%       point for each blob that are uniformly distributed. After that the
+%       seed points are grown to blobs on the alpha map. The random blob function
+%       calculates random uniform distributed movement for the size of the
+%       blob. The blob tries to grow to positions it are not already
+%       occupied by only accepting random movement onto new positions. If
+%       all positions around it are already used the algorithm allows the
+%       blob to move onto an occupied position to escape the enclosure.
+%       After that the alpha map is blurred with a gaussian filter and is
+%       used to blend the original image with a white image (by interpolation).
 %   
 %   PHYSICAL BACKGROUND:
-%       .....
+%       Vinegar damage on films is caused by poor storage of films.
+%       As old film roles are on cellulose acetate, they degrade with 
+%       exposure to moisture, heat or acids. The deterioration starts with 
+%       the typical vinegar smell and spots on the film. Advanced stages 
+%       of deterioration then make the film brittle and let the film shrink
+%       making the film unusable for showing, as the film would shatter
+%       with the slightest tension.
+%
 function video = distortion_vinegar(video, number_of_blobs, max_blob_size)
 
     if(video.frame(1).frame_nr == -1)
@@ -64,8 +80,7 @@ end
 function map = generateblob(map, x, y, max_blob_size)
 
 % if x y are valid position -> set them and go into for loop
-x
-y
+
 if map(x, y) == 0
     map(x, y) = 1;
     valid_x = x;

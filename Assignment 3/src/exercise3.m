@@ -177,10 +177,10 @@ function exercise3(input_directory, output_directory, start_frame, end_frame)
         % use information from the queue
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
-%         video = distortion_scratch(video, 6);
-%         video = distortion_vinegar(video, 25, 120);
-%         video = distortion_grain(video);
-          video = distortion_burn(video, 5);
+%        video = distortion_scratch(video, 6);
+%        video = distortion_vinegar(video, 25, 120);
+%        video = distortion_grain(video);
+%        video = distortion_burn(video, 5);
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % STORE FRAMES AT THE END OF PROCESSING BUFFER

@@ -11,11 +11,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   IMPLEMENTIERUNG:
-%   	.....
-%   
+%       Each frame a random number of scratches up to the variable is
+%       applied to the frame. This is done by calculating a random position
+%       for each scratch, and assigning them randomly however evenly to the 
+%       dark or bright scratch array. Each scratch has also a random color 
+%       based on a range ([200 - 230] for bright, [50 - 80] for dark). After
+%       the positions and colors are computed they have a probability of
+%       50% to be drawn or not. Each scratch is drawn by setting a collumn
+%       of the picture to the calculated value. The value is divided by 255 
+%       to convert uint8 values to double. 
 %   
 %   PHYSIKALISCHER HINTERGRUND:
-%       .....
+%       Old movie films often get deteriorated with scratches due to 
+%       mechanical contact with the film projector. 
+%       This can happen due to film slippage during fast start, stops and
+%       rewinding, therfore scratching the film with accumulated dirt particles.
+%       Scratches often appear consecutively in several frames at similar 
+%       horizontal locations. Because the scratches spread over many frames
+%       and appear at same locations during projection, this kind of film
+%       damate is readily seen by the viewer.
+%
 function video = distortion_scratch(video,nr_of_scratches)
 
 
